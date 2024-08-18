@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 TextStyle _getTextStyle(
     double fontSize, String fontFamily, FontWeight fontWeight, Color color) {
   return TextStyle(
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      fontWeight: fontWeight,
-      color: color);
+    fontSize: fontSize,
+    fontFamily: fontFamily,
+    fontWeight: fontWeight,
+    color: color,
+  );
 }
 
 // regular style
@@ -15,7 +16,11 @@ TextStyle _getTextStyle(
 TextStyle getRegularStyle(
     {double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.regular, color);
+    fontSize,
+    FontConstants.fontFamily,
+    FontWeightManager.regular,
+    color,
+  );
 }
 
 // light text style
