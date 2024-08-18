@@ -10,12 +10,15 @@ dependencies:
   analyzer: ^6.4.1
   connectivity_plus: ^6.0.5
   dartz: ^0.10.1
+  device_info: ^2.0.3
   dio: ^5.6.0
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.10+1
   json_serializable: ^6.8.0
+  pretty_dio_logger: ^1.4.0
   retrofit: ^4.2.0
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:
