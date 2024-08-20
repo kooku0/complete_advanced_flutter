@@ -5,9 +5,9 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl implements NetworkInfo {
-  final Connectivity _connectivity = Connectivity();
+  final Connectivity _connectivity;
 
-  NetworkInfoImpl();
+  NetworkInfoImpl(this._connectivity);
 
   @override
   Future<bool> get isConnected => _connectivity

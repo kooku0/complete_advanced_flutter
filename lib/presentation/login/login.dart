@@ -1,3 +1,8 @@
+import 'package:complete_advanced_flutter/app/di.dart';
+import 'package:complete_advanced_flutter/data/data_source/remote_data_source.dart';
+import 'package:complete_advanced_flutter/data/repository/repository_impl.dart';
+import 'package:complete_advanced_flutter/domain/repository/repository.dart';
+import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/login/login_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/assets_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
@@ -18,8 +23,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewModel =
-      LoginViewModel(null); // todo pass here login useCase
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
