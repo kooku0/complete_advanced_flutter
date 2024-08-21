@@ -1,5 +1,6 @@
 import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
 import 'package:complete_advanced_flutter/data/network/failure.dart';
+import 'package:complete_advanced_flutter/presentation/resources/assets_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/font_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
@@ -7,6 +8,7 @@ import 'package:complete_advanced_flutter/presentation/resources/styles_manager.
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lottie/lottie.dart';
 
 enum StateRendererType {
   // POPUP STATES
@@ -22,7 +24,6 @@ enum StateRendererType {
 
 class StateRenderer extends StatelessWidget {
   StateRendererType stateRendererType;
-  Failure failure;
   String message;
   String title;
   Function? retryActionFunction;
@@ -30,13 +31,11 @@ class StateRenderer extends StatelessWidget {
   StateRenderer({
     super.key,
     required this.stateRendererType,
-    Failure? failure,
     String? message,
     String? title,
     required this.retryActionFunction,
   })  : message = message ?? AppStrings.loading,
-        title = title ?? EMPTY,
-        failure = failure ?? DefaultFailure();
+        title = title ?? EMPTY;
 
   @override
   Widget build(BuildContext context) {
@@ -47,30 +46,30 @@ class StateRenderer extends StatelessWidget {
     switch (stateRendererType) {
       case StateRendererType.POPUP_LOADING_STATE:
         return _getPopUpDialog(context, [
-          _getAnimatedImage(),
+          _getAnimatedImage(JsonAssets.loading),
         ]);
       case StateRendererType.POPUP_ERROR_STATE:
         return _getPopUpDialog(context, [
-          _getAnimatedImage(),
-          _getMessage(failure.message),
+          _getAnimatedImage(JsonAssets.error),
+          _getMessage(message),
           _getRetryButton(AppStrings.ok, context),
         ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
         return _getItemsInColumn([
-          _getAnimatedImage(),
+          _getAnimatedImage(JsonAssets.loading),
           _getMessage(message),
         ]);
       case StateRendererType.FULL_SCREEN_ERROR_STATE:
         return _getItemsInColumn([
-          _getAnimatedImage(),
-          _getMessage(failure.message),
+          _getAnimatedImage(JsonAssets.error),
+          _getMessage(message),
           _getRetryButton(AppStrings.retry_again, context),
         ]);
       case StateRendererType.CONTENT_SCREEN_STATE:
         return Container();
       case StateRendererType.EMPTY_SCREEN_STATE:
         return _getItemsInColumn([
-          _getAnimatedImage(),
+          _getAnimatedImage(JsonAssets.empty),
           _getMessage(message),
         ]);
       default:
@@ -112,12 +111,11 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  Widget _getAnimatedImage() {
-    return const SizedBox(
+  Widget _getAnimatedImage(String animationName) {
+    return SizedBox(
       height: AppSize.s100,
       width: AppSize.s100,
-
-      // child: , // json image
+      child: Lottie.asset(animationName),
     );
   }
 
