@@ -4,6 +4,7 @@ import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/baseviewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/common/freezed_data_classes.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
+import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
@@ -13,6 +14,9 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
+
+  StreamController isUserLoggedInSuccessfullyStreamController =
+      StreamController<bool>();
 
   var loginObject = LoginObject(userName: "", password: "");
 
@@ -25,6 +29,7 @@ class LoginViewModel extends BaseViewModel
     _userNameStreamController.close();
     _passwordStreamController.close();
     _isAllInputsValidStreamController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -44,18 +49,27 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
+    inputState.add(
+      LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE),
+    );
     (await _loginUseCase.execute(LoginUseCaseInput(
       email: loginObject.userName,
       password: loginObject.password,
     )))
         .fold(
-      (failure) => {
+      (failure) {
         // left -> failure
-        print(failure.message)
+        inputState.add(
+          ErrorState(
+            stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+            message: failure.message,
+          ),
+        );
       },
-      (data) => {
+      (data) {
         // right -> success (data)
-        print(data.customer?.name)
+        inputState.add(ContentState());
+        isUserLoggedInSuccessfullyStreamController.add(true);
       },
     );
   }
