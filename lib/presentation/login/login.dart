@@ -3,6 +3,7 @@ import 'package:complete_advanced_flutter/data/data_source/remote_data_source.da
 import 'package:complete_advanced_flutter/data/repository/repository_impl.dart';
 import 'package:complete_advanced_flutter/domain/repository/repository.dart';
 import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
+import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:complete_advanced_flutter/presentation/login/login_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/assets_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
@@ -47,131 +48,143 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(
+                context: context,
+                contentScreenWidget: _getContentWidget(),
+                retryActionFunction: () {
+                  _viewModel.login();
+                },
+              ) ??
+              _getContentWidget();
+        },
+      ),
+    );
   }
 
   Widget _getContentWidget() {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      body: Container(
-        padding: const EdgeInsets.only(top: AppPadding.p100),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const Image(image: AssetImage(ImageAssets.splashLogo)),
-                const SizedBox(height: AppPadding.p28),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: AppPadding.p28,
-                    right: AppPadding.p28,
-                  ),
-                  child: StreamBuilder<bool>(
-                    stream: _viewModel.outputIsUserNameValid,
-                    builder: (context, snapshot) {
-                      return TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _userNameController,
-                        decoration: InputDecoration(
-                          hintText: AppStrings.username,
-                          labelText: AppStrings.username,
-                          errorText: (snapshot.data ?? true)
-                              ? null
-                              : AppStrings.usernameError,
-                        ),
-                      );
-                    },
-                  ),
+    return Container(
+      padding: const EdgeInsets.only(top: AppPadding.p100),
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const Image(image: AssetImage(ImageAssets.splashLogo)),
+              const SizedBox(height: AppPadding.p28),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: AppPadding.p28,
+                  right: AppPadding.p28,
                 ),
-                const SizedBox(height: AppPadding.p28),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: AppPadding.p28,
-                    right: AppPadding.p28,
-                  ),
-                  child: StreamBuilder<bool>(
-                    stream: _viewModel.outputIsPasswordValid,
-                    builder: (context, snapshot) {
-                      return TextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          hintText: AppStrings.password,
-                          labelText: AppStrings.password,
-                          errorText: (snapshot.data ?? true)
-                              ? null
-                              : AppStrings.passwordError,
-                        ),
-                      );
-                    },
-                  ),
+                child: StreamBuilder<bool>(
+                  stream: _viewModel.outputIsUserNameValid,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _userNameController,
+                      decoration: InputDecoration(
+                        hintText: AppStrings.username,
+                        labelText: AppStrings.username,
+                        errorText: (snapshot.data ?? true)
+                            ? null
+                            : AppStrings.usernameError,
+                      ),
+                    );
+                  },
                 ),
-                const SizedBox(height: AppPadding.p28),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: AppPadding.p28,
-                    right: AppPadding.p28,
-                  ),
-                  child: StreamBuilder<bool>(
-                    stream:
-                        _viewModel.outputIsAllInputsValid, // todo add me later,
-                    builder: (context, snapshot) {
-                      return SizedBox(
-                        width: double.infinity,
-                        height: AppSize.s40,
-                        child: ElevatedButton(
-                          onPressed: (snapshot.data ?? false)
-                              ? () {
-                                  _viewModel.login();
-                                }
-                              : null,
-                          child: const Text(
-                            AppStrings.login,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+              ),
+              const SizedBox(height: AppPadding.p28),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: AppPadding.p28,
+                  right: AppPadding.p28,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: AppPadding.p8,
-                    left: AppPadding.p28,
-                    right: AppPadding.p28,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            Routes.forgotPasswordRoute,
-                          );
-                        },
-                        child: Text(
-                          AppStrings.forgotPassword,
-                          style: Theme.of(context).textTheme.headlineMedium,
+                child: StreamBuilder<bool>(
+                  stream: _viewModel.outputIsPasswordValid,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        hintText: AppStrings.password,
+                        labelText: AppStrings.password,
+                        errorText: (snapshot.data ?? true)
+                            ? null
+                            : AppStrings.passwordError,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: AppPadding.p28),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: AppPadding.p28,
+                  right: AppPadding.p28,
+                ),
+                child: StreamBuilder<bool>(
+                  stream:
+                      _viewModel.outputIsAllInputsValid, // todo add me later,
+                  builder: (context, snapshot) {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: AppSize.s40,
+                      child: ElevatedButton(
+                        onPressed: (snapshot.data ?? false)
+                            ? () {
+                                _viewModel.login();
+                              }
+                            : null,
+                        child: const Text(
+                          AppStrings.login,
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            Routes.registerRoute,
-                          );
-                        },
-                        child: Text(
-                          AppStrings.registerText,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: AppPadding.p8,
+                  left: AppPadding.p28,
+                  right: AppPadding.p28,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.forgotPasswordRoute,
+                        );
+                      },
+                      child: Text(
+                        AppStrings.forgotPassword,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.registerRoute,
+                        );
+                      },
+                      child: Text(
+                        AppStrings.registerText,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

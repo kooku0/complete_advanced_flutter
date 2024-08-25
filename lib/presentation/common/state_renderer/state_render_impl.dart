@@ -73,11 +73,11 @@ class EmptyState extends FlowState {
 }
 
 extension FlowStateExtension on FlowState {
-  Widget getScreenWidget(
-    BuildContext context,
-    Widget contentScreenWidget,
-    Function retryActionFunction,
-  ) {
+  Widget getScreenWidget({
+    required BuildContext context,
+    required Widget contentScreenWidget,
+    required Function retryActionFunction,
+  }) {
     switch (runtimeType) {
       case LoadingState:
         {
