@@ -1,9 +1,5 @@
 import 'package:complete_advanced_flutter/app/app_prefs.dart';
 import 'package:complete_advanced_flutter/app/di.dart';
-import 'package:complete_advanced_flutter/data/data_source/remote_data_source.dart';
-import 'package:complete_advanced_flutter/data/repository/repository_impl.dart';
-import 'package:complete_advanced_flutter/domain/repository/repository.dart';
-import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:complete_advanced_flutter/presentation/login/login_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/assets_manager.dart';
@@ -16,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});

@@ -54,3 +54,11 @@ class DeviceInfo {
     required this.version,
   });
 }
+
+class ForgotPassword {
+  String support;
+
+  ForgotPassword({
+    required this.support,
+  });
+}

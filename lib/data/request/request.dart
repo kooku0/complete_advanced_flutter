@@ -11,3 +11,11 @@ class LoginRequest {
     required this.deviceType,
   });
 }
+
+class ForgotPasswordRequest {
+  String email;
+
+  ForgotPasswordRequest({
+    required this.email,
+  });
+}

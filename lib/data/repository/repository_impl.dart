@@ -29,7 +29,42 @@ class RepositoryImpl extends Repository {
           // return biz logic error
           return Left(
             Failure(
-              code: response.status ?? ApiInternalStatus.FAILURE,
+              code: response.status ?? ResponseCode.DEFAULT,
+              message: response.message ?? ResponseMessage.DEFAULT,
+            ),
+          );
+        }
+      } catch (error) {
+        // return server error
+        return Left(
+          ErrorHandler.handle(error).failure,
+        );
+      }
+    } else {
+      // return connection error
+      return Left(
+        DataSource.NO_INTERNET_CONNECTION.getFailure(),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ForgotPassword>> forgotPassword(
+      ForgotPasswordRequest forgotPasswordRequest) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        // its safe to call the API
+        final response =
+            await _remoteDataSource.forgotPassword(forgotPasswordRequest);
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          // success
+          return Right(response.toDomain());
+        } else {
+          // return biz logic error
+          return Left(
+            Failure(
+              code: response.status ?? ResponseCode.DEFAULT,
               message: response.message ?? ResponseMessage.DEFAULT,
             ),
           );
