@@ -24,5 +24,7 @@ class ForgotPasswordUseCase
 class ForgotPasswordUseCaseInput {
   String email;
 
-  ForgotPasswordUseCaseInput({required this.email});
+  ForgotPasswordUseCaseInput({
+    required this.email,
+  });
 }
