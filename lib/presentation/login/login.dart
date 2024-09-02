@@ -65,6 +65,7 @@ class _LoginViewState extends State<LoginView> {
                 retryActionFunction: () {
                   _viewModel.login();
                 },
+                resetFlowState: _viewModel.resetFlowState,
               ) ??
               _getContentWidget();
         },
