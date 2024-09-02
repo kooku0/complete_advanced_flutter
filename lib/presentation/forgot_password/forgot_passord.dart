@@ -47,6 +47,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 retryActionFunction: () {
                   _viewModel.forgotPassword();
                 },
+                initializeFlowState: _viewModel.initializeFlowState,
               ) ??
               _getContentWidget();
         },

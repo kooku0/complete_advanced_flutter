@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
 import 'package:complete_advanced_flutter/domain/usecase/forgot_password_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/baseviewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/common/freezed_data_classes.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer.dart';
-import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
@@ -14,7 +14,8 @@ class ForgotPasswordViewModel extends BaseViewModel
   final StreamController _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
-  ForgotPasswordObject forgotPasswordObject = ForgotPasswordObject(email: "");
+  ForgotPasswordObject forgotPasswordObject =
+      ForgotPasswordObject(email: EMPTY);
 
   final ForgotPasswordUseCase _forgotPasswordUseCase;
   ForgotPasswordViewModel(this._forgotPasswordUseCase);

@@ -1,5 +1,4 @@
 import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
-import 'package:complete_advanced_flutter/data/network/failure.dart';
 import 'package:complete_advanced_flutter/presentation/resources/assets_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/font_manager.dart';
@@ -24,17 +23,19 @@ enum StateRendererType {
 }
 
 class StateRenderer extends StatelessWidget {
-  StateRendererType stateRendererType;
-  String message;
-  String title;
-  Function? retryActionFunction;
+  final StateRendererType stateRendererType;
+  final String message;
+  final String title;
+  final Function? retryActionFunction;
+  final Function initializeFlowState;
 
-  StateRenderer({
+  const StateRenderer({
     super.key,
     required this.stateRendererType,
     String? message,
     String? title,
     required this.retryActionFunction,
+    required this.initializeFlowState,
   })  : message = message ?? EMPTY,
         title = title ?? EMPTY;
 
@@ -158,6 +159,7 @@ class StateRenderer extends StatelessWidget {
                 Navigator.of(context)
                     .pop(); // popup state error so we need to dismiss the dialog
                 retryActionFunction?.call();
+                initializeFlowState();
               }
             },
             child: Text(buttonTitle),
@@ -176,6 +178,7 @@ class StateRenderer extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
+              initializeFlowState();
             },
             child: Text(buttonTitle),
           ),

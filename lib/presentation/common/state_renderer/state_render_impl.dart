@@ -94,6 +94,7 @@ extension FlowStateExtension on FlowState {
     required BuildContext context,
     required Widget contentScreenWidget,
     required Function retryActionFunction,
+    required Function initializeFlowState,
   }) {
     switch (runtimeType) {
       case LoadingState:
@@ -103,6 +104,7 @@ extension FlowStateExtension on FlowState {
               context: context,
               stateRendererType: getStateRendererType(),
               message: getMessage(),
+              initializeFlowState: initializeFlowState,
             );
             return contentScreenWidget;
           } else {
@@ -110,6 +112,7 @@ extension FlowStateExtension on FlowState {
               stateRendererType: getStateRendererType(),
               message: getMessage(),
               retryActionFunction: retryActionFunction,
+              initializeFlowState: initializeFlowState,
             );
           }
         }
@@ -121,6 +124,7 @@ extension FlowStateExtension on FlowState {
               context: context,
               stateRendererType: getStateRendererType(),
               message: getMessage(),
+              initializeFlowState: initializeFlowState,
             );
             return contentScreenWidget;
           } else {
@@ -128,6 +132,7 @@ extension FlowStateExtension on FlowState {
               stateRendererType: getStateRendererType(),
               message: getMessage(),
               retryActionFunction: retryActionFunction,
+              initializeFlowState: initializeFlowState,
             );
           }
         }
@@ -139,6 +144,7 @@ extension FlowStateExtension on FlowState {
             stateRendererType: StateRendererType.POPUP_SUCCESS_STATE,
             message: getMessage(),
             title: AppStrings.success,
+            initializeFlowState: initializeFlowState,
           );
           return contentScreenWidget;
         }
@@ -153,6 +159,7 @@ extension FlowStateExtension on FlowState {
             stateRendererType: getStateRendererType(),
             message: getMessage(),
             retryActionFunction: retryActionFunction,
+            initializeFlowState: initializeFlowState,
           );
         }
       default:
@@ -176,6 +183,7 @@ extension FlowStateExtension on FlowState {
     required BuildContext context,
     required StateRendererType stateRendererType,
     required String message,
+    required Function initializeFlowState,
     String title = EMPTY,
   }) {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -187,6 +195,7 @@ extension FlowStateExtension on FlowState {
             title: title,
             message: message,
             retryActionFunction: () {},
+            initializeFlowState: initializeFlowState,
           ),
         );
       },
