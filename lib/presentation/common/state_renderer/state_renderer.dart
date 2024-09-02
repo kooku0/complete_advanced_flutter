@@ -27,7 +27,7 @@ class StateRenderer extends StatelessWidget {
   final String message;
   final String title;
   final Function? retryActionFunction;
-  final Function initializeFlowState;
+  final Function resetFlowState;
 
   const StateRenderer({
     super.key,
@@ -35,7 +35,7 @@ class StateRenderer extends StatelessWidget {
     String? message,
     String? title,
     required this.retryActionFunction,
-    required this.initializeFlowState,
+    required this.resetFlowState,
   })  : message = message ?? EMPTY,
         title = title ?? EMPTY;
 
@@ -159,7 +159,7 @@ class StateRenderer extends StatelessWidget {
                 Navigator.of(context)
                     .pop(); // popup state error so we need to dismiss the dialog
                 retryActionFunction?.call();
-                initializeFlowState();
+                resetFlowState();
               }
             },
             child: Text(buttonTitle),
@@ -178,7 +178,7 @@ class StateRenderer extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              initializeFlowState();
+              resetFlowState();
             },
             child: Text(buttonTitle),
           ),
