@@ -14,6 +14,7 @@ enum StateRendererType {
   // POPUP STATES
   POPUP_LOADING_STATE,
   POPUP_ERROR_STATE,
+  POPUP_SUCCESS_STATE,
 
   // FULL SCREEN STATES
   FULL_SCREEN_LOADING_STATE,
@@ -34,7 +35,7 @@ class StateRenderer extends StatelessWidget {
     String? message,
     String? title,
     required this.retryActionFunction,
-  })  : message = message ?? AppStrings.loading,
+  })  : message = message ?? EMPTY,
         title = title ?? EMPTY;
 
   @override
@@ -53,6 +54,13 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
           _getRetryButton(AppStrings.ok, context),
+        ]);
+      case StateRendererType.POPUP_SUCCESS_STATE:
+        return _getPopUpDialog(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getMessage(title),
+          _getMessage(message),
+          _getConfirmButton(AppStrings.ok, context),
         ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
         return _getItemsInColumn([
@@ -149,7 +157,25 @@ class StateRenderer extends StatelessWidget {
               } else {
                 Navigator.of(context)
                     .pop(); // popup state error so we need to dismiss the dialog
+                retryActionFunction?.call();
               }
+            },
+            child: Text(buttonTitle),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _getConfirmButton(String buttonTitle, BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p18),
+        child: SizedBox(
+          width: AppSize.s180,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
             },
             child: Text(buttonTitle),
           ),

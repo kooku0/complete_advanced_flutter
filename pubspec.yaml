@@ -47,6 +47,7 @@ flutter:
     - assets/json/loading.json
     - assets/json/error.json
     - assets/json/empty.json
+    - assets/json/success.json
 
   fonts:
     - family: Montserrat

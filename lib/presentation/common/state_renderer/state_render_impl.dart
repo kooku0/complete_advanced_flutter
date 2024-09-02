@@ -44,6 +44,23 @@ class ErrorState extends FlowState {
   String getMessage() => message;
 }
 
+// SUCCESS STATE
+
+class SuccessState extends FlowState {
+  String message;
+
+  SuccessState({
+    required this.message,
+  });
+
+  @override
+  StateRendererType getStateRendererType() =>
+      StateRendererType.POPUP_SUCCESS_STATE;
+
+  @override
+  String getMessage() => message;
+}
+
 // CONTENT STATE
 
 class ContentState extends FlowState {
@@ -82,7 +99,11 @@ extension FlowStateExtension on FlowState {
       case LoadingState:
         {
           if (getStateRendererType() == StateRendererType.POPUP_LOADING_STATE) {
-            showPopUp(context, getStateRendererType(), getMessage());
+            showPopUp(
+              context: context,
+              stateRendererType: getStateRendererType(),
+              message: getMessage(),
+            );
             return contentScreenWidget;
           } else {
             return StateRenderer(
@@ -96,7 +117,11 @@ extension FlowStateExtension on FlowState {
         {
           dismissDialog(context);
           if (getStateRendererType() == StateRendererType.POPUP_ERROR_STATE) {
-            showPopUp(context, getStateRendererType(), getMessage());
+            showPopUp(
+              context: context,
+              stateRendererType: getStateRendererType(),
+              message: getMessage(),
+            );
             return contentScreenWidget;
           } else {
             return StateRenderer(
@@ -105,6 +130,17 @@ extension FlowStateExtension on FlowState {
               retryActionFunction: retryActionFunction,
             );
           }
+        }
+      case SuccessState:
+        {
+          dismissDialog(context);
+          showPopUp(
+            context: context,
+            stateRendererType: StateRendererType.POPUP_SUCCESS_STATE,
+            message: getMessage(),
+            title: AppStrings.success,
+          );
+          return contentScreenWidget;
         }
       case ContentState:
         {
@@ -136,17 +172,19 @@ extension FlowStateExtension on FlowState {
     return ModalRoute.of(context)?.isCurrent != true;
   }
 
-  showPopUp(
-    BuildContext context,
-    StateRendererType stateRendererType,
-    String message,
-  ) {
+  showPopUp({
+    required BuildContext context,
+    required StateRendererType stateRendererType,
+    required String message,
+    String title = EMPTY,
+  }) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         showDialog(
           context: context,
           builder: (BuildContext context) => StateRenderer(
             stateRendererType: stateRendererType,
+            title: title,
             message: message,
             retryActionFunction: () {},
           ),

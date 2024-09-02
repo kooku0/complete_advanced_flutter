@@ -5,6 +5,7 @@ import 'package:complete_advanced_flutter/presentation/base/baseviewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/common/freezed_data_classes.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer.dart';
+import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
@@ -57,7 +58,11 @@ class ForgotPasswordViewModel extends BaseViewModel
       },
       (data) {
         // right -> success (data)
-        inputState.add(ContentState());
+        inputState.add(
+          SuccessState(
+            message: data.support,
+          ),
+        );
       },
     );
   }
