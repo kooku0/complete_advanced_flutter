@@ -29,9 +29,24 @@ class RegisterViewModel extends BaseViewModel
       ForgotPasswordObject(email: EMPTY);
 
   final RegisterUseCase _registerUseCase;
+
   RegisterViewModel(this._registerUseCase);
 
-  // inputs
+  var registerViewObject = RegisterObject(
+    countryMobileCode: EMPTY,
+    mobileNumber: EMPTY,
+    userName: EMPTY,
+    email: EMPTY,
+    password: EMPTY,
+    profilePicture: EMPTY,
+  );
+
+  @override
+  void start() {
+    // view tells state renderer, please show the content of the screen
+    inputState.add(ContentState());
+  }
+
   @override
   void dispose() {
     _userNameStreamController.close();
@@ -41,12 +56,6 @@ class RegisterViewModel extends BaseViewModel
     _profilePictureStreamController.close();
 
     _isAllInputsValidStreamController.close();
-  }
-
-  @override
-  void start() {
-    // view tells state renderer, please show the content of the screen
-    inputState.add(ContentState());
   }
 
   @override
@@ -88,7 +97,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
-      .map((password) => isPasswordValid(password));
+      .map((password) => _isPasswordValid(password));
 
   @override
   Stream<String?> get outputErrorPassword => outputIsPasswordValid.map(
@@ -116,20 +125,20 @@ class RegisterViewModel extends BaseViewModel
       _isAllInputsValidStreamController.stream.map((_) => _isAllInputsValid());
 
   @override
-  setEmail(String email) {
-    inputEmail.add(email);
-    forgotPasswordObject = forgotPasswordObject.copyWith(email: email);
-    _validate();
-  }
-
-  @override
   register() async {
     inputState.add(
       LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE),
     );
-    (await _registerUseCase.execute(ForgotPasswordUseCaseInput(
-      email: forgotPasswordObject.email,
-    )))
+    (await _registerUseCase.execute(
+      RegisterUseCaseInput(
+        countryMobileCode: registerViewObject.countryMobileCode,
+        mobileNumber: registerViewObject.mobileNumber,
+        userName: registerViewObject.userName,
+        email: registerViewObject.email,
+        password: registerViewObject.password,
+        profilePicture: registerViewObject.profilePicture,
+      ),
+    ))
         .fold(
       (failure) {
         // left -> failure
@@ -143,9 +152,7 @@ class RegisterViewModel extends BaseViewModel
       (data) {
         // right -> success (data)
         inputState.add(
-          SuccessState(
-            message: data.support,
-          ),
+          ContentState(),
         );
       },
     );
@@ -160,7 +167,7 @@ class RegisterViewModel extends BaseViewModel
     return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
 
-  bool isPasswordValid(String password) {
+  bool _isPasswordValid(String password) {
     return password.length >= 8;
   }
 
@@ -169,20 +176,120 @@ class RegisterViewModel extends BaseViewModel
   }
 
   bool _isAllInputsValid() {
-    return _isEmailValid(forgotPasswordObject.email);
+    return registerViewObject.profilePicture.isNotEmpty &&
+        registerViewObject.email.isNotEmpty &&
+        registerViewObject.password.isNotEmpty &&
+        registerViewObject.mobileNumber.isNotEmpty &&
+        registerViewObject.userName.isNotEmpty &&
+        registerViewObject.countryMobileCode.isNotEmpty;
   }
 
   _validate() {
     inputIsAllInputsValid.add(null);
   }
+
+  @override
+  setUserName(String userName) {
+    if (_isUserNameValid(userName)) {
+      // update register view object with username value
+      registerViewObject = registerViewObject.copyWith(
+        userName: userName,
+      );
+    } else {
+      // reset username value in register view object
+      registerViewObject = registerViewObject.copyWith(
+        userName: EMPTY,
+      );
+    }
+    _validate();
+  }
+
+  @override
+  setEmail(String email) {
+    if (_isEmailValid(email)) {
+      // update register view object with email value
+      registerViewObject = registerViewObject.copyWith(
+        email: email,
+      );
+    } else {
+      // reset email value in register view object
+      registerViewObject = registerViewObject.copyWith(
+        email: EMPTY,
+      );
+    }
+    _validate();
+  }
+
+  @override
+  setPassword(String password) {
+    if (_isPasswordValid(password)) {
+      // update register view object with password value
+      registerViewObject = registerViewObject.copyWith(
+        password: password,
+      );
+    } else {
+      // reset password value in register view object
+      registerViewObject = registerViewObject.copyWith(
+        password: EMPTY,
+      );
+    }
+    _validate();
+  }
+
+  @override
+  setCountryMobileCode(String countryMobileCode) {
+    if (countryMobileCode.isNotEmpty) {
+      // update register view object with countryMobileCode value
+      registerViewObject = registerViewObject.copyWith(
+          countryMobileCode: countryMobileCode); // using data class like kotlin
+    } else {
+      // reset countryMobileCode value in register view object
+      registerViewObject = registerViewObject.copyWith(countryMobileCode: "");
+    }
+    _validate();
+  }
+
+  @override
+  setMobileNumber(String mobileNumber) {
+    if (_isMobileNumberValid(mobileNumber)) {
+      // update register view object with mobile number value
+      registerViewObject = registerViewObject.copyWith(
+        countryMobileCode: mobileNumber,
+      );
+    } else {
+      // reset mobile number value in register view object
+      registerViewObject = registerViewObject.copyWith(
+        countryMobileCode: EMPTY,
+      );
+    }
+    _validate();
+  }
+
+  @override
+  setProfilePicture(File profilePicture) {
+    if (profilePicture.path.isNotEmpty) {
+      registerViewObject = registerViewObject.copyWith(
+        profilePicture: profilePicture.path,
+      );
+    } else {
+      registerViewObject = registerViewObject.copyWith(
+        profilePicture: EMPTY,
+      );
+    }
+    _validate();
+  }
 }
 
 abstract mixin class RegisterViewModelInputs {
-  // three functions for actions
-  setEmail(String email);
   register();
 
-  // two sinks for streams
+  setUserName(String userName);
+  setEmail(String email);
+  setPassword(String password);
+  setCountryMobileCode(String countryMobileCode);
+  setMobileNumber(String mobileNumber);
+  setProfilePicture(File profilePicture);
+
   Sink get inputUserName;
   Sink get inputMobileNumber;
   Sink get inputEmail;

@@ -27,6 +27,7 @@ class RegisterUseCase
 
 class RegisterUseCaseInput {
   String countryMobileCode;
+  String mobileNumber;
   String userName;
   String email;
   String password;
@@ -34,6 +35,7 @@ class RegisterUseCaseInput {
 
   RegisterUseCaseInput({
     required this.countryMobileCode,
+    required this.mobileNumber,
     required this.userName,
     required this.email,
     required this.password,
