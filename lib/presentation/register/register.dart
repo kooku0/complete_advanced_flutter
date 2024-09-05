@@ -12,4 +12,9 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return const Placeholder();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }
