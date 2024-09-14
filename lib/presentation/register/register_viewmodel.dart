@@ -25,6 +25,9 @@ class RegisterViewModel extends BaseViewModel
   final StreamController _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
+  StreamController isUserLoggedInSuccessfullyStreamController =
+      StreamController<bool>();
+
   ForgotPasswordObject forgotPasswordObject =
       ForgotPasswordObject(email: EMPTY);
 
@@ -56,6 +59,8 @@ class RegisterViewModel extends BaseViewModel
     _profilePictureStreamController.close();
 
     _isAllInputsValidStreamController.close();
+
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -153,6 +158,8 @@ class RegisterViewModel extends BaseViewModel
         inputState.add(
           ContentState(),
         );
+
+        isUserLoggedInSuccessfullyStreamController.add(true);
       },
     );
   }
@@ -189,6 +196,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setUserName(String userName) {
+    inputUserName.add(userName);
     if (_isUserNameValid(userName)) {
       // update register view object with username value
       registerViewObject = registerViewObject.copyWith(
@@ -205,6 +213,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setEmail(String email) {
+    inputEmail.add(email);
     if (_isEmailValid(email)) {
       // update register view object with email value
       registerViewObject = registerViewObject.copyWith(
@@ -221,6 +230,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setPassword(String password) {
+    inputPassword.add(password);
     if (_isPasswordValid(password)) {
       // update register view object with password value
       registerViewObject = registerViewObject.copyWith(
@@ -250,15 +260,16 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setMobileNumber(String mobileNumber) {
+    inputMobileNumber.add(mobileNumber);
     if (_isMobileNumberValid(mobileNumber)) {
       // update register view object with mobile number value
       registerViewObject = registerViewObject.copyWith(
-        countryMobileCode: mobileNumber,
+        mobileNumber: mobileNumber,
       );
     } else {
       // reset mobile number value in register view object
       registerViewObject = registerViewObject.copyWith(
-        countryMobileCode: EMPTY,
+        mobileNumber: EMPTY,
       );
     }
     _validate();
@@ -266,6 +277,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setProfilePicture(File profilePicture) {
+    inputProfilePicture.add(profilePicture);
     if (profilePicture.path.isNotEmpty) {
       registerViewObject = registerViewObject.copyWith(
         profilePicture: profilePicture.path,

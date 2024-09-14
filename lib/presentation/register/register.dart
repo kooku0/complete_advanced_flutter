@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:complete_advanced_flutter/app/app_prefs.dart';
 import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
@@ -11,6 +12,7 @@ import 'package:complete_advanced_flutter/presentation/resources/strings_manager
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterView extends StatefulWidget {
@@ -23,6 +25,8 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final RegisterViewModel _viewModel = instance<RegisterViewModel>();
   ImagePicker picker = instance<ImagePicker>();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _userNameTextEditingController =
@@ -52,6 +56,14 @@ class _RegisterViewState extends State<RegisterView> {
     });
     _passwordEditingController.addListener(() {
       _viewModel.setPassword(_passwordEditingController.text);
+    });
+
+    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
+        .listen((isSuccessLoggedIn) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _appPreferences.setIsUserLoggedIn();
+        Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+      });
     });
   }
 
@@ -125,6 +137,10 @@ class _RegisterViewState extends State<RegisterView> {
                           onChanged: (country) {
                             _viewModel.setCountryMobileCode(
                                 country.dialCode ?? EMPTY);
+                          },
+                          onInit: (country) {
+                            _viewModel.setCountryMobileCode(
+                                country?.dialCode ?? EMPTY);
                           },
                           initialSelection: '+82',
                           showCountryOnly: true,

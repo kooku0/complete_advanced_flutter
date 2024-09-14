@@ -16,6 +16,7 @@ class RegisterUseCase
     return await _repository.register(
       RegisterRequest(
         countryMobileCode: input.countryMobileCode,
+        mobileNumber: input.mobileNumber,
         userName: input.userName,
         email: input.email,
         password: input.password,

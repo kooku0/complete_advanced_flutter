@@ -102,6 +102,7 @@ class _AppServiceClient implements AppServiceClient {
   @override
   Future<AuthenticationResponse> register(
     String countryMobileCode,
+    String mobileNumber,
     String userName,
     String email,
     String password,
@@ -112,6 +113,7 @@ class _AppServiceClient implements AppServiceClient {
     final _headers = <String, dynamic>{};
     final _data = {
       'country_mobile_code': countryMobileCode,
+      'mobile_number': mobileNumber,
       'user_name': userName,
       'email': email,
       'password': password,
