@@ -97,29 +97,29 @@ Map<String, dynamic> _$ServiceResponseToJson(ServiceResponse instance) =>
       'image': instance.image,
     };
 
-StoresResponse _$StoresResponseFromJson(Map<String, dynamic> json) =>
-    StoresResponse(
+StoreResponse _$StoreResponseFromJson(Map<String, dynamic> json) =>
+    StoreResponse(
       id: (json['id'] as num?)?.toInt(),
       title: json['title'] as String?,
       image: json['image'] as String?,
     );
 
-Map<String, dynamic> _$StoresResponseToJson(StoresResponse instance) =>
+Map<String, dynamic> _$StoreResponseToJson(StoreResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'image': instance.image,
     };
 
-BannersResponse _$BannersResponseFromJson(Map<String, dynamic> json) =>
-    BannersResponse(
+BannerResponse _$BannerResponseFromJson(Map<String, dynamic> json) =>
+    BannerResponse(
       id: (json['id'] as num?)?.toInt(),
       title: json['title'] as String?,
       image: json['image'] as String?,
       link: json['link'] as String?,
     );
 
-Map<String, dynamic> _$BannersResponseToJson(BannersResponse instance) =>
+Map<String, dynamic> _$BannerResponseToJson(BannerResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
@@ -133,10 +133,10 @@ HomeDataResponse _$HomeDataResponseFromJson(Map<String, dynamic> json) =>
           ?.map((e) => ServiceResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       stores: (json['stores'] as List<dynamic>?)
-          ?.map((e) => StoresResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => StoreResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       banners: (json['banners'] as List<dynamic>?)
-          ?.map((e) => BannersResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => BannerResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

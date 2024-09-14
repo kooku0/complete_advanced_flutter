@@ -43,3 +43,34 @@ extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
     );
   }
 }
+
+extension ServiceResponseMapper on ServiceResponse? {
+  Service toDomain() {
+    return Service(
+      id: this?.id?.orZero() ?? ZERO,
+      title: this?.title?.orEmpty() ?? EMPTY,
+      image: this?.image?.orEmpty() ?? EMPTY,
+    );
+  }
+}
+
+extension StoreResponseMapper on StoreResponse? {
+  Store toDomain() {
+    return Store(
+      id: this?.id?.orZero() ?? ZERO,
+      title: this?.title?.orEmpty() ?? EMPTY,
+      image: this?.image?.orEmpty() ?? EMPTY,
+    );
+  }
+}
+
+extension BannerResponseMapper on BannerResponse? {
+  Banner toDomain() {
+    return Banner(
+      id: this?.id?.orZero() ?? ZERO,
+      title: this?.title?.orEmpty() ?? EMPTY,
+      image: this?.image?.orEmpty() ?? EMPTY,
+      link: this?.link?.orEmpty() ?? EMPTY,
+    );
+  }
+}
