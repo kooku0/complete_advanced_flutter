@@ -17,12 +17,14 @@ class AppStrings {
   static const String skip = 'skip';
   static const String username = 'Username';
   static const String usernameError = 'Username is wrong';
+  static const String mobileNumber = 'Mobile Number';
   static const String password = 'Password';
   static const String passwordError = 'Password is wrong';
   static const String login = 'Login';
   static const String forgotPassword = 'Forgot password';
   static const String registerText = 'Not a member ? Sign up';
   static const String email = 'Email';
+  static const String emailHint = 'Email';
   static const String resetPassword = 'Reset Password';
   static const String resendEmail = 'Didn\'t receive email? Resend';
   static const String emailError = 'Email is wrong';
@@ -31,4 +33,7 @@ class AppStrings {
   static const String retry_again = 'Retry Again';
   static const String ok = 'Ok';
   static const String success = 'Success';
+  static const String profilePicture = 'Profile Picture';
+  static const String photoGalley = 'Photo from galley';
+  static const String photoCamera = 'Photo from camera';
 }
