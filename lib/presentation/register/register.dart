@@ -81,7 +81,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _getContentWidget() {
     return Container(
-      padding: const EdgeInsets.only(top: AppPadding.p100),
+      padding: const EdgeInsets.only(top: AppPadding.p30),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -112,8 +112,10 @@ class _RegisterViewState extends State<RegisterView> {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(
+                    top: AppPadding.p12,
                     left: AppPadding.p28,
                     right: AppPadding.p28,
+                    bottom: AppPadding.p12,
                   ),
                   child: Row(
                     children: [
@@ -126,6 +128,7 @@ class _RegisterViewState extends State<RegisterView> {
                           },
                           initialSelection: '+82',
                           showCountryOnly: true,
+                          hideMainText: true,
                           showOnlyCountryWhenClosed: true,
                           favorite: const ['+966', '+02', "'+39"],
                         ),
@@ -151,9 +154,10 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
               ),
-              const SizedBox(height: AppPadding.p28),
+              const SizedBox(height: AppPadding.p12),
               Padding(
                 padding: const EdgeInsets.only(
+                  top: AppPadding.p12,
                   left: AppPadding.p28,
                   right: AppPadding.p28,
                 ),
@@ -172,9 +176,10 @@ class _RegisterViewState extends State<RegisterView> {
                   },
                 ),
               ),
-              const SizedBox(height: AppPadding.p28),
+              const SizedBox(height: AppPadding.p12),
               Padding(
                 padding: const EdgeInsets.only(
+                  top: AppPadding.p12,
                   left: AppPadding.p28,
                   right: AppPadding.p28,
                 ),
@@ -193,13 +198,15 @@ class _RegisterViewState extends State<RegisterView> {
                   },
                 ),
               ),
-              const SizedBox(height: AppPadding.p28),
+              const SizedBox(height: AppPadding.p12),
               Padding(
                 padding: const EdgeInsets.only(
+                  top: AppPadding.p12,
                   left: AppPadding.p28,
                   right: AppPadding.p28,
                 ),
                 child: Container(
+                  height: AppSize.s40,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: ColorManager.lightGrey,
@@ -213,7 +220,7 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
               ),
-              const SizedBox(height: AppPadding.p28),
+              const SizedBox(height: AppPadding.p12),
               Padding(
                 padding: const EdgeInsets.only(
                   left: AppPadding.p28,
