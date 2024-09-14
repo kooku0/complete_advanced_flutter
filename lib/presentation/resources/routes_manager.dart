@@ -1,7 +1,7 @@
 import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/presentation/forgot_password/forgot_passord.dart';
 import 'package:complete_advanced_flutter/presentation/login/login.dart';
-import 'package:complete_advanced_flutter/presentation/main/main.dart';
+import 'package:complete_advanced_flutter/presentation/main/main_view.dart';
 import 'package:complete_advanced_flutter/presentation/onboarding/onboarding.dart';
 import 'package:complete_advanced_flutter/presentation/register/register.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
