@@ -233,7 +233,7 @@ class _RegisterViewState extends State<RegisterView> {
                               }
                             : null,
                         child: const Text(
-                          AppStrings.login,
+                          AppStrings.register,
                         ),
                       ),
                     );
@@ -246,34 +246,14 @@ class _RegisterViewState extends State<RegisterView> {
                   left: AppPadding.p28,
                   right: AppPadding.p28,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          Routes.forgotPasswordRoute,
-                        );
-                      },
-                      child: Text(
-                        AppStrings.forgotPassword,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          Routes.registerRoute,
-                        );
-                      },
-                      child: Text(
-                        AppStrings.registerText,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                    ),
-                  ],
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    AppStrings.haveAccount,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ),
               ),
             ],

@@ -117,8 +117,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<File> get outputProfilePicture =>
-      _profilePictureStreamController.stream
-          .map((profilePicture) => profilePicture);
+      _profilePictureStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>

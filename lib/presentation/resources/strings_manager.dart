@@ -36,4 +36,6 @@ class AppStrings {
   static const String profilePicture = 'Profile Picture';
   static const String photoGalley = 'Photo from galley';
   static const String photoCamera = 'Photo from camera';
+  static const String register = 'Register';
+  static const String haveAccount = 'Already have an account? Login';
 }
