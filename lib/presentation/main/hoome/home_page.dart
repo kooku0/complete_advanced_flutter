@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                             service.image,
                             fit: BoxFit.cover,
                             height: AppSize.s100,
-                            width: AppSize.s100,
+                            width: AppSize.s120,
                           ),
                         ),
                         Padding(
