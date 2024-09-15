@@ -87,13 +87,13 @@ class Store {
   });
 }
 
-class Banner {
+class BannerAd {
   int id;
   String title;
   String image;
   String link;
 
-  Banner({
+  BannerAd({
     required this.id,
     required this.title,
     required this.image,
@@ -104,7 +104,7 @@ class Banner {
 class HomeData {
   List<Service> services;
   List<Store> stores;
-  List<Banner> banners;
+  List<BannerAd> banners;
 
   HomeData({
     required this.services,
