@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
-import 'package:complete_advanced_flutter/domain/usecase/forgot_password_usecase.dart';
 import 'package:complete_advanced_flutter/domain/usecase/register_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/baseviewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/common/freezed_data_classes.dart';
