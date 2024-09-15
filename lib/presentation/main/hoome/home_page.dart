@@ -95,6 +95,7 @@ class _HomePageState extends State<HomePage> {
                 child: Card(
                   elevation: AppSize.s1_5,
                   shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSize.s12),
                     side: BorderSide(
                       color: ColorManager.white,
                       width: AppSize.s1_5,
@@ -124,7 +125,71 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getServices() {
-    return const Center();
+    return StreamBuilder<List<Service>>(
+      stream: _viewModel.outputServices,
+      builder: (context, snapshot) {
+        return _getServicesWidget(snapshot.data);
+      },
+    );
+  }
+
+  Widget _getServicesWidget(List<Service>? services) {
+    if (services != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          left: AppPadding.p12,
+          right: AppPadding.p12,
+        ),
+        child: Container(
+          height: AppSize.s140,
+          margin: const EdgeInsets.symmetric(
+            vertical: AppMargin.m12,
+          ),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: services
+                .map(
+                  (service) => Card(
+                    elevation: AppSize.s4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s12),
+                      side: BorderSide(
+                        color: ColorManager.white,
+                        width: AppSize.s1_5,
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(AppSize.s12),
+                          child: Image.network(
+                            service.image,
+                            fit: BoxFit.cover,
+                            height: AppSize.s130,
+                            width: AppSize.s130,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: AppPadding.p8),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              service.title,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget _getStores() {
