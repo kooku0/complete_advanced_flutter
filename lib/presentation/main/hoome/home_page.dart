@@ -3,6 +3,7 @@ import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:complete_advanced_flutter/presentation/main/hoome/home_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
+import 'package:complete_advanced_flutter/presentation/resources/routes_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:complete_advanced_flutter/domain/model/model.dart';
@@ -193,7 +194,56 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getStores() {
-    return const Center();
+    return StreamBuilder<List<Store>>(
+      stream: _viewModel.outputStores,
+      builder: (context, snapshot) {
+        return _getStoresWidget(snapshot.data);
+      },
+    );
+  }
+
+  Widget _getStoresWidget(List<Store>? stores) {
+    if (stores != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          left: AppPadding.p12,
+          right: AppPadding.p12,
+          top: AppPadding.p12,
+        ),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            GridView.count(
+              crossAxisSpacing: AppSize.s8,
+              mainAxisSpacing: AppSize.s8,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              children: List.generate(
+                stores.length,
+                (index) {
+                  return InkWell(
+                      onTap: () {
+                        // navigate to store details screen
+                        Navigator.of(context)
+                            .pushNamed(Routes.storeDetailsRoute);
+                      },
+                      child: Card(
+                        elevation: AppSize.s4,
+                        child: Image.network(
+                          stores[index].image,
+                          fit: BoxFit.cover,
+                        ),
+                      ));
+                },
+              ),
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   @override
