@@ -50,16 +50,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getContentWidget() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _getBannersCarousel(),
-        _getSection(AppStrings.services),
-        _getServices(),
-        _getSection(AppStrings.stores),
-        _getStores(),
-      ],
-    );
+    return StreamBuilder<HomeViewObject>(
+        stream: _viewModel.outputHomeData,
+        builder: (context, snapshot) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _getBanners(snapshot.data?.banners),
+              _getSection(AppStrings.services),
+              _getServices(snapshot.data?.services),
+              _getSection(AppStrings.stores),
+              _getStores(snapshot.data?.stores),
+            ],
+          );
+        });
   }
 
   Widget _getSection(String title) {
@@ -77,16 +81,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _getBannersCarousel() {
-    return StreamBuilder<List<BannerAd>>(
-      stream: _viewModel.outputBanners,
-      builder: (context, snapshot) {
-        return _getBanner(snapshot.data);
-      },
-    );
-  }
-
-  Widget _getBanner(List<BannerAd>? banners) {
+  Widget _getBanners(List<BannerAd>? banners) {
     if (banners != null) {
       return CarouselSlider(
         items: banners
@@ -125,16 +120,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _getServices() {
-    return StreamBuilder<List<Service>>(
-      stream: _viewModel.outputServices,
-      builder: (context, snapshot) {
-        return _getServicesWidget(snapshot.data);
-      },
-    );
-  }
-
-  Widget _getServicesWidget(List<Service>? services) {
+  Widget _getServices(List<Service>? services) {
     if (services != null) {
       return Padding(
         padding: const EdgeInsets.only(
@@ -193,16 +179,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _getStores() {
-    return StreamBuilder<List<Store>>(
-      stream: _viewModel.outputStores,
-      builder: (context, snapshot) {
-        return _getStoresWidget(snapshot.data);
-      },
-    );
-  }
-
-  Widget _getStoresWidget(List<Store>? stores) {
+  Widget _getStores(List<Store>? stores) {
     if (stores != null) {
       return Padding(
         padding: const EdgeInsets.only(
