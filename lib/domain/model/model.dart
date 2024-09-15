@@ -114,9 +114,9 @@ class HomeData {
 }
 
 class HomeObject {
-  HomeData homeData;
+  HomeData data;
 
   HomeObject({
-    required this.homeData,
+    required this.data,
   });
 }

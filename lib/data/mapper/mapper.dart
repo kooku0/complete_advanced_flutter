@@ -95,14 +95,14 @@ extension HomeResponseMapper on HomeResponse? {
             .cast<BannerAd>()
             .toList();
 
-    var homeData = HomeData(
+    var data = HomeData(
       services: mappedServices,
       stores: mappedStores,
       banners: mappedBanners,
     );
 
     return HomeObject(
-      homeData: homeData,
+      data: data,
     );
   }
 }

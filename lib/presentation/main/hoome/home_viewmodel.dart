@@ -39,9 +39,9 @@ class HomeViewModel extends BaseViewModel
       );
     }, (homeObject) {
       inputState.add(ContentState());
-      inputBanners.add(homeObject.homeData.banners);
-      inputServices.add(homeObject.homeData.services);
-      inputStores.add(homeObject.homeData.stores);
+      inputBanners.add(homeObject.data.banners);
+      inputServices.add(homeObject.data.services);
+      inputStores.add(homeObject.data.stores);
     });
   }
 
