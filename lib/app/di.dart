@@ -1,4 +1,5 @@
 import 'package:complete_advanced_flutter/app/app_prefs.dart';
+import 'package:complete_advanced_flutter/data/data_source/local_data_source.dart';
 import 'package:complete_advanced_flutter/data/data_source/remote_data_source.dart';
 import 'package:complete_advanced_flutter/data/network/app_api.dart';
 import 'package:complete_advanced_flutter/data/network/dio_factory.dart';
@@ -51,9 +52,14 @@ Future<void> initAppModule() async {
     () => RemoteDataSourceImplementer(instance()),
   );
 
+  // local data source
+  instance.registerLazySingleton<LocalDataSource>(
+    () => LocalDataSourceImplementer(),
+  );
+
   // repository
   instance.registerLazySingleton<Repository>(
-    () => RepositoryImpl(instance(), instance()),
+    () => RepositoryImpl(instance(), instance(), instance()),
   );
 }
 
