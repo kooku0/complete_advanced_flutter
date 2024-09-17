@@ -120,3 +120,21 @@ class HomeObject {
     required this.data,
   });
 }
+
+class StoreDetails {
+  int id;
+  String title;
+  String image;
+  String details;
+  String services;
+  String about;
+
+  StoreDetails({
+    required this.id,
+    required this.title,
+    required this.image,
+    required this.details,
+    required this.services,
+    required this.about,
+  });
+}

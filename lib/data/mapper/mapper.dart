@@ -3,7 +3,7 @@
 import 'package:complete_advanced_flutter/app/extensions.dart';
 import 'package:complete_advanced_flutter/data/responses/responses.dart';
 import 'package:complete_advanced_flutter/domain/model/model.dart';
-import 'package:complete_advanced_flutter/presentation/main/hoome/home_viewmodel.dart';
+import 'package:complete_advanced_flutter/presentation/main/home/home_viewmodel.dart';
 
 const EMPTY = "";
 const ZERO = 0;
@@ -104,6 +104,19 @@ extension HomeResponseMapper on HomeResponse? {
 
     return HomeObject(
       data: data,
+    );
+  }
+}
+
+extension StoreDetailsResponseMapper on StoreDetailsResponse? {
+  StoreDetails toDomain() {
+    return StoreDetails(
+      id: this?.id?.orZero() ?? ZERO,
+      title: this?.title?.orEmpty() ?? EMPTY,
+      image: this?.image?.orEmpty() ?? EMPTY,
+      details: this?.details?.orEmpty() ?? EMPTY,
+      services: this?.services?.orEmpty() ?? EMPTY,
+      about: this?.about?.orEmpty() ?? EMPTY,
     );
   }
 }

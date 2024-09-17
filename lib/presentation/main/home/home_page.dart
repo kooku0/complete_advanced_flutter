@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_render_impl.dart';
-import 'package:complete_advanced_flutter/presentation/main/hoome/home_viewmodel.dart';
+import 'package:complete_advanced_flutter/presentation/main/home/home_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/routes_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
@@ -202,8 +202,12 @@ class _HomePageState extends State<HomePage> {
                   return InkWell(
                       onTap: () {
                         // navigate to store details screen
-                        Navigator.of(context)
-                            .pushNamed(Routes.storeDetailsRoute);
+                        Navigator.of(context).pushNamed(
+                          Routes.storeDetailsRoute,
+                          arguments: {
+                            'id': stores[index].id,
+                          },
+                        );
                       },
                       child: Card(
                         elevation: AppSize.s4,

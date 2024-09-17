@@ -13,4 +13,6 @@ abstract class Repository {
       RegisterRequest registerRequest);
 
   Future<Either<Failure, HomeObject>> getHome();
+
+  Future<Either<Failure, StoreDetails>> getStoreDetails(int id);
 }
