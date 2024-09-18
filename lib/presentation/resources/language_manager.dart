@@ -1,18 +1,23 @@
+import 'dart:ui';
+
 enum LanguageType {
   ENGLISH,
-  KOREAN,
+  ARABIC,
 }
 
 const String ENGLISH = 'en';
-const String KOREAN = 'ko';
+const String ARABIC = "ar";
+const String ASSETS_PATH_LOCALISATIONS = "assets/translations";
+const Locale ENGLISH_LOCAL = Locale('en', "US");
+const Locale ARABIC_LOCAL = Locale('ar', "SA");
 
 extension LanguageTypeExtension on LanguageType {
   String getValue() {
     switch (this) {
       case LanguageType.ENGLISH:
         return ENGLISH;
-      case LanguageType.KOREAN:
-        return KOREAN;
+      case LanguageType.ARABIC:
+        return ARABIC;
     }
   }
 }
