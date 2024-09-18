@@ -17,7 +17,7 @@ class ImageAssets {
   static const String inviteFriendsIc = '$IMAGE_PATH/invite_friends_ic.svg';
   static const String photoCameraIc = '$IMAGE_PATH/photo_camera_ic.svg';
   static const String settingsRightArrowIc =
-      '$IMAGE_PATH/settings_right_arrow_ic.';
+      '$IMAGE_PATH/settings_right_arrow_ic.svg';
 }
 
 class JsonAssets {
