@@ -7,6 +7,7 @@ import 'package:complete_advanced_flutter/presentation/register/register.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:complete_advanced_flutter/presentation/splash/splash.dart';
 import 'package:complete_advanced_flutter/presentation/store_details/store_details.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -50,10 +51,10 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (_) => Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.noRouteFound),
+          title: const Text(AppStrings.noRouteFound).tr(),
         ),
-        body: const Center(
-          child: Text(AppStrings.noRouteFound),
+        body: Center(
+          child: const Text(AppStrings.noRouteFound).tr(),
         ),
       ),
     );

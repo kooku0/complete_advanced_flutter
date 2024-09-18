@@ -7,6 +7,7 @@ import 'package:complete_advanced_flutter/presentation/resources/color_manager.d
 import 'package:complete_advanced_flutter/presentation/resources/routes_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -85,7 +86,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   AppStrings.skip,
                   textAlign: TextAlign.end,
                   style: Theme.of(context).textTheme.titleMedium,
-                ),
+                ).tr(),
               ),
             ),
             _getBottomSheetWidget(sliderViewObject),
