@@ -122,3 +122,14 @@ initStoreDetailsModule() {
     );
   }
 }
+
+resetAllModules() {
+  instance.reset(dispose: false);
+
+  initAppModule();
+  initHomeModule();
+  initLoginModule();
+  initRegisterModule();
+  initForgotPasswordModule();
+  initStoreDetailsModule();
+}
