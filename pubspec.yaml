@@ -17,6 +17,7 @@ dependencies:
   easy_localization: ^3.0.7
   flutter:
     sdk: flutter
+  flutter_phoenix: ^1.1.1
   flutter_svg: ^2.0.10+1
   freezed: ^2.5.2
   get_it: ^7.7.0
