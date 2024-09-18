@@ -91,7 +91,7 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
           content: storeDetails.services,
         ),
         _getSection(
-          title: AppStrings.aboutStore,
+          title: AppStrings.about,
           content: storeDetails.about,
         ),
       ],

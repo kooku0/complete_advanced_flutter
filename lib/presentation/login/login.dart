@@ -172,7 +172,7 @@ class _LoginViewState extends State<LoginView> {
                         );
                       },
                       child: Text(
-                        AppStrings.forgotPassword,
+                        AppStrings.forgetPassword,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
